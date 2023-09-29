@@ -51,6 +51,27 @@ Express, is a very lightweight framework.
 MongoDB one of the most famous document database.
 startOrderAvailabilityCheck is a function to update the bakers availability every 10 min.
 
+# API Documentation:
+Auth:
+Baker: <"/api/v1/authBaker"> >> (POST /signup,login,forgotPassword,verifyResetCode), (PUT/ resetPassword)
+
+Member: <"/api/v1/authMember"> >> (POST/ signup,login,forgotPassword,verifyResetCode), (PUT/ resetPassword)
+
+Users:
+Baker: <"/api/v1/baker"> >> (GET/getME getUser), (GET/ getUsers), (POST/ createUser), (PUT/ updateUser,changeUserPassword, updateLoggedUserPassword, updateLoggedUserData), (DELETE/ deleteUser,deleteLoggedUserData)
+
+Member: <"/api/v1/member"> >> (GET/:id getUser), (POST/ createUser), (PUT/ updateUser,changeUserPassword, updateLoggedUserPassword, updateLoggedUserData), (DELETE/ deleteUser,deleteLoggedUserData)
+
+Reviews:
+Products: <"/api/v1/reviewsProduct> >> (GET/ getReviews), (GET/id getReview), (POST/ createReview), (PUT/ updateReview), (DELETE/ deleteReview), (GET/productId/reviews getReviews)
+Bakers: <"/api/v1/reviewsBaker> >> (GET/ getReviews), (GET/id getReview), (POST/ createReview), (PUT/ updateReview), (DELETE/ deleteReview)
+
+Products: <"/api/v1/products"> >> (GET/:productId/reviews reviewsRoute), (GET/ getProducts, getProduct), (POST/ createProduct), (PUT/ updateProduct), (DELETE/ deleteProduct)
+
+Orders: <"/api/v1/orders"> >> (GET/ availableBakers), (GET/ bakerOrders), (POST/ placeOrder), (PUT/ orderPaymentCash, fulfilledOrder), (GET/orderId reviewOrder)
+
+*Important Note: Please make sure to read the comments placed in the code* 
+
 
 # Clone the repository: git clone https://github.com/Abdul-Rahman99/CakePals.git
 
