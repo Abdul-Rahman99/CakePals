@@ -22,7 +22,7 @@ router
   .route("/")
   .get(availableBakers)
   .post(authMemberService.protect, placeOrder) // only members can place an orders
-  .post(authBakerService.protect , orderPaymentCash) // only bakers can confirm payment is done
+  .put(authBakerService.protect , orderPaymentCash) // only bakers can confirm payment is done
   .get(authBakerService.protect, bakerOrders);
 
 // @desc  Nested Route for fulfilled orders reviews
