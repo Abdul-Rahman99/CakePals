@@ -2,7 +2,7 @@ const factory = require("./handlersFactory");
 const Review = require("../models/reviewProductModel");
 
 // Nested route
-// GET /api/v1/products/:productId/reviews
+// GET /api/v1/reviewsProduct/:productId/reviews
 exports.createFilterObj = (req, res, next) => {
   let filterObject = {};
   if (req.params.productId) filterObject = { product: req.params.productId };
@@ -10,13 +10,13 @@ exports.createFilterObj = (req, res, next) => {
   next();
 };
 
-// @desc    Get list of reviews
-// @route   GET /api/v1/reviews
+// @desc    Get list of reviews for a product
+// @route   GET /api/v1/reviewsProduct
 // @access  Public/guest-member-baker
 exports.getReviews = factory.getAll(Review);
 
 // @desc    Get specific review by id
-// @route   GET /api/v1/reviews/:id
+// @route   GET /api/v1/reviewsProduct/:id
 // @access  Public/guest-member-baker
 exports.getReview = factory.getOne(Review);
 
@@ -27,17 +27,18 @@ exports.setProductIdAndUserIdToBody = (req, res, next) => {
   if (!req.body.user) req.body.user = req.user._id;
   next();
 };
-// @desc    Create review
-// @route   POST  /api/v1/reviews
+
+// @desc    Create review for a product
+// @route   POST  /api/v1/reviewsProduct
 // @access  Private/Protect/member
 exports.createReview = factory.createOne(Review);
 
-// @desc    Update specific review
-// @route   PUT /api/v1/reviews/:id
+// @desc    Update specific review for a product
+// @route   PUT /api/v1/reviewsProduct/:id
 // @access  Private/Protect/member
 exports.updateReview = factory.updateOne(Review);
 
-// @desc    Delete specific review
-// @route   DELETE /api/v1/reviews/:id
+// @desc    Delete specific review for a product
+// @route   DELETE /api/v1/reviewsProduct/:id
 // @access  Private/Protected/member
 exports.deleteReview = factory.deleteOne(Review);

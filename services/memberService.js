@@ -30,23 +30,19 @@ exports.resizeImage = asyncHandler(async (req, res, next) => {
   next();
 });
 
-// @desc    Get list of users
-// @route   GET /api/v1/users
-// @access  Private/Admin
-exports.getUsers = factory.getAll(User);
 
-// @desc    Get specific user by id
-// @route   GET /api/v1/users/:id
-// @access  Public
+// @desc    Get specific member by id
+// @route   GET /api/v1/member/:id
+// @access  protected
 exports.getUser = factory.getOne(User);
 
-// @desc    Create user
-// @route   POST  /api/v1/users
+// @desc    Create member
+// @route   POST  /api/v1/member
 // @access  Public
 exports.createUser = factory.createOne(User);
 
-// @desc    Update specific user
-// @route   PUT /api/v1/users/:id
+// @desc    Update specific member
+// @route   PUT /api/v1/member/:id
 // @access  Private/protected
 exports.updateUser = asyncHandler(async (req, res, next) => {
   const document = await User.findByIdAndUpdate(
@@ -70,8 +66,8 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
   res.status(200).json({ data: document });
 });
 
-// @desc    Change User Password
-// @route   PUT /api/v1/users/:id
+// @desc    Change member Password
+// @route   PUT /api/v1/member/:id
 // @access  Private/Protected
 exports.changeUserPassword = asyncHandler(async (req, res, next) => {
   const document = await User.findByIdAndUpdate(
@@ -92,20 +88,20 @@ exports.changeUserPassword = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Delete specific user
-// @route   DELETE /api/v1/users/:id
+// @route   DELETE /api/v1/member/:id
 // @access  Private/protected
 exports.deleteUser = factory.deleteOne(User);
 
-// @desc    Get Logged user data
-// @route   GET /api/v1/users/getMe
+// @desc    Get Logged member data
+// @route   GET /api/v1/member/getMe
 // @access  Private/Protected
 exports.getLoggedUserData = asyncHandler(async (req, res, next) => {
   req.params.id = req.user._id;
   next();
 });
 
-// @desc    Update logged user password
-// @route   PUT /api/v1/users/updateMyPassword
+// @desc    Update logged member password
+// @route   PUT /api/v1/member/updateMyPassword
 // @access  Private/Protected
 exports.updateLoggedUserPassword = asyncHandler(async (req, res, next) => {
   // 1) Update user password based user payload (req.user._id)
@@ -126,8 +122,8 @@ exports.updateLoggedUserPassword = asyncHandler(async (req, res, next) => {
   res.status(200).json({ data: user, token });
 });
 
-// @desc    Update logged user data (without password, role)
-// @route   PUT /api/v1/users/updateMe
+// @desc    Update logged member data (without password, role)
+// @route   PUT /api/v1/member/updateMe
 // @access  Private/Protected
 exports.updateLoggedUserData = asyncHandler(async (req, res, next) => {
   const updatedUser = await User.findByIdAndUpdate(
@@ -143,8 +139,8 @@ exports.updateLoggedUserData = asyncHandler(async (req, res, next) => {
   res.status(200).json({ data: updatedUser });
 });
 
-// @desc    Deactivate logged user
-// @route   DELETE /api/v1/users/deleteMe
+// @desc    Deactivate logged member
+// @route   DELETE /api/v1/member/deleteMe
 // @access  Private/Protected
 exports.deleteLoggedUserData = asyncHandler(async (req, res, next) => {
   await User.findByIdAndUpdate(req.user._id, { active: false });

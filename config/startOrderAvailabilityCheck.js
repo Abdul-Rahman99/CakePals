@@ -1,11 +1,9 @@
 const cron = require("node-cron");
-const asyncHandler = require("express-async-handler");
-const mongoose = require("mongoose");
 
 const Order = require("../models/orderModel");
 const Baker = require("../models/bakerModel");
 
-// Define a cron job to run every, 10 minutes
+// Define a cron job to run every, 10 minutes and update bakers availablity
 function startOrderAvailabilityCheck() {
   cron.schedule("*/10 * * * *", async () => {
     // Find completed orders

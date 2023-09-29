@@ -23,13 +23,15 @@ const router = express.Router({ mergeParams: true });
 
 router
   .route("/")
-  .get(createFilterObj, getReviews)
   .post(
     authMemberService.protect,
     setProductIdAndUserIdToBody,
     createReviewValidator,
     createReview
   );
+
+router.route("/:productId/reviews").get(createFilterObj, getReviews);
+
 router
   .route("/:id")
   .get(getReviewValidator, getReview)

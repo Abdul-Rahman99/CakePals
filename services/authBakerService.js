@@ -9,8 +9,8 @@ const createToken = require("../utils/createToken");
 
 const Baker = require("../models/bakerModel");
 
-// @desc    Signup as a baker or as a member
-// @route   GET /api/v1/auth/signup
+// @desc    Signup as a baker or as a baker
+// @route   GET /api/v1/authBaker/signup
 // @access  Public
 exports.signup = asyncHandler(async (req, res, next) => {
   // 1- Create user
@@ -20,7 +20,6 @@ exports.signup = asyncHandler(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
   });
-
   // 2- Generate token
   const token = createToken(user._id);
 
@@ -28,7 +27,7 @@ exports.signup = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Login
-// @route   GET /api/v1/auth/login
+// @route   GET /api/v1/authBaker/login
 // @access  Public
 exports.login = asyncHandler(async (req, res, next) => {
   // 1) check if password and email in the body (validation)
@@ -49,7 +48,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   res.status(200).json({ data: user, token });
 });
 
-// @desc   make sure the user is logged in
+// @desc   make sure the wanted user is logged in
 exports.protect = asyncHandler(async (req, res, next) => {
   // 1) Check if token exist, if exist get
   let token;
@@ -118,7 +117,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
 //   });
 
 // @desc    Forgot password
-// @route   POST /api/v1/auth/forgotPassword
+// @route   POST /api/v1/authBaker/forgotPassword
 // @access  Public
 exports.forgotPassword = asyncHandler(async (req, res, next) => {
   // 1) Get user by email
@@ -166,7 +165,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Verify password reset code
-// @route   POST /api/v1/auth/verifyResetCode
+// @route   POST /api/v1/authBaker/verifyResetCode
 // @access  Public
 exports.verifyPassResetCode = asyncHandler(async (req, res, next) => {
   // 1) Get user based on reset code
@@ -193,7 +192,7 @@ exports.verifyPassResetCode = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Reset password
-// @route   POST /api/v1/auth/resetPassword
+// @route   POST /api/v1/authBaker/resetPassword
 // @access  Public
 exports.resetPassword = asyncHandler(async (req, res, next) => {
   // 1) Get user based on email

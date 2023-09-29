@@ -6,7 +6,10 @@ const ApiFeatures = require("../utils/apiFeatures");
 const Order = require("../models/orderModel");
 const Product = require("../models/productModel");
 
-// To place an order from Member or guest
+
+// @desc    Place an order from Member or guest
+// @route   GET /api/v1/orders
+// @access  Protected/member
 exports.placeOrder = asyncHandler(async (req, res, next) => {
   const { productId, userId } = req.body;
   const product = await Product.findById(productId);
@@ -51,6 +54,9 @@ exports.placeOrder = asyncHandler(async (req, res, next) => {
   next();
 });
 
+// @desc    Confirming payment from baker
+// @route   GET /api/v1/orders
+// @access  Protected/baker
 exports.orderPaymentCash = asyncHandler(async (req, res, next) => {
   const { orderId, price } = req.params;
   // Find the order by ID
@@ -73,6 +79,9 @@ exports.orderPaymentCash = asyncHandler(async (req, res, next) => {
     .json({ message: `Payment Succesful your total price is ${order.price}` });
 });
 
+// @desc    Get all orders for bakers
+// @route   GET /api/v1/orders
+// @access  Protected/baker
 exports.bakerOrders = asyncHandler(async (req, res, next) => {
   let filter = {};
   if (req.filterObj) {
@@ -102,6 +111,9 @@ exports.bakerOrders = asyncHandler(async (req, res, next) => {
     .json({ results: documents.length, paginationResult, data: orders });
 });
 
+// @desc    Accept an order from Member by a baker
+// @route   GET /api/v1/orders
+// @access  Protected/member
 exports.acceptOrders = asyncHandler(async (req, res, next) => {
   const { orderId } = req.params.orderId;
 
@@ -116,6 +128,9 @@ exports.acceptOrders = asyncHandler(async (req, res, next) => {
   res.status(201).json({ data: updatedOrder });
 });
 
+// @desc    Reject an order from Member by a baker
+// @route   GET /api/v1/orders
+// @access  Protected/baker
 exports.rejectOrder = asyncHandler(async (req, res, next) => {
   const { orderId } = req.params.orderId;
 
@@ -130,6 +145,9 @@ exports.rejectOrder = asyncHandler(async (req, res, next) => {
   res.status(201).json({ data: updatedOrder });
 });
 
+// @desc    Place an order from baker as a fulfilled
+// @route   GET /api/v1/orders
+// @access  Protected/baker
 exports.fulfilledOrder = asyncHandler(async (req, res, next) => {
   const { orderId } = req.params.orderId;
 
@@ -144,6 +162,9 @@ exports.fulfilledOrder = asyncHandler(async (req, res, next) => {
   res.status(201).json({ data: updatedOrder });
 });
 
+// @desc    Review an order from Member
+// @route   GET /api/v1/orders
+// @access  Protected/member
 exports.reviewOrder = asyncHandler(async (req, res) => {
   const orderId = req.params.orderId;
   const { review } = req.body;
@@ -164,7 +185,7 @@ exports.reviewOrder = asyncHandler(async (req, res) => {
 });
 
 // Nested route
-// GET /api/v1/products/:productId/reviews
+// GET /api/v1/orders/:productId/reviews
 exports.createFilterObj = (req, res, next) => {
   let filterObject = {};
   if (req.params.orderId) filterObject = { order: req.params.orderId };
@@ -180,6 +201,9 @@ exports.setProductIdAndUserIdToBody = (req, res, next) => {
   next();
 };
 
+// @desc    List all available bakers to the members and guests
+// @route   GET /api/v1/orders
+// @access  Public
 exports.availableBakers = asyncHandler(async (req, res) => {
   const availableBakers = await Baker.find({
     "currentOrder.order": null,

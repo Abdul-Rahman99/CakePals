@@ -22,8 +22,11 @@ const authMemberService = require("../services/authMemberService");
 const router = express.Router({ mergeParams: true });
 
 router
+  .route("/:productId/reviews")
+    .get(createFilterObj, getReviews)
+
+router
   .route("/")
-  .get(createFilterObj, getReviews)
   .post(
     authMemberService.protect,
     setProductIdAndUserIdToBody,

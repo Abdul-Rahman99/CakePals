@@ -10,13 +10,13 @@ exports.createFilterObj = (req, res, next) => {
   next();
 };
 
-// @desc    Get list of reviews
-// @route   GET /api/v1/reviews
-// @access  Public/guest-member-baker
+// @desc    Get list of reviews of the baker
+// @route   GET /api/v1/reviewsBaker
+// @access  Public/member-baker
 exports.getReviews = factory.getAll(ReviewBakerModel);
 
-// @desc    Get specific review by id
-// @route   GET /api/v1/reviews/:id
+// @desc    Get specific review by id for baker
+// @route   GET /api/v1/reviewsBaker/:id
 // @access  Public/guest-member-baker
 exports.getReview = factory.getOne(ReviewBakerModel);
 
@@ -27,17 +27,17 @@ exports.setProductIdAndUserIdToBody = (req, res, next) => {
   if (!req.body.user) req.body.user = req.user._id;
   next();
 };
-// @desc    Create review
-// @route   POST  /api/v1/reviews
+// @desc    Create review for a baker
+// @route   POST  /api/v1/reviewsBaker/:prodyctId/reviews
 // @access  Private/Protect/member
 exports.createReview = factory.createOne(ReviewBakerModel);
 
-// @desc    Update specific review
-// @route   PUT /api/v1/reviews/:id
+// @desc    Update specific review for a baker
+// @route   PUT /api/v1/reviewsBaker/:id
 // @access  Private/Protect/member
 exports.updateReview = factory.updateOne(ReviewBakerModel);
 
 // @desc    Delete specific review
-// @route   DELETE /api/v1/reviews/:id
+// @route   DELETE /api/v1/reviewsBaker/:id
 // @access  Private/Protected/member
 exports.deleteReview = factory.deleteOne(ReviewBakerModel);

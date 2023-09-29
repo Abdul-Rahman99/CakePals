@@ -26,10 +26,19 @@ const authMemberService = require("../services/authMemberService");
 
 const router = express.Router();
 
-router.get("/getMe", getLoggedUserData, getUser);
-router.put("/changeMyPassword", updateLoggedUserPassword);
-router.put("/updateMe", updateLoggedUserValidator, updateLoggedUserData);
-router.delete("/deleteMe", deleteLoggedUserData);
+router.get("/getMe", authMemberService.protect, getLoggedUserData, getUser);
+router.put(
+  "/changeMyPassword",
+  authMemberService.protect,
+  updateLoggedUserPassword
+);
+router.put(
+  "/updateMe",
+  authMemberService.protect,
+  updateLoggedUserValidator,
+  updateLoggedUserData
+);
+router.delete("/deleteMe", authMemberService.protect, deleteLoggedUserData);
 
 router.put(
   "/changePassword/:id",

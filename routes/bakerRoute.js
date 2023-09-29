@@ -8,7 +8,7 @@ const {
   updateLoggedUserValidator,
 } = require("../utils/validators/bakerValidator");
 
-const {    
+const {
   getUsers,
   getUser,
   createUser,
@@ -27,10 +27,19 @@ const authBakerService = require("../services/authBakerService");
 
 const router = express.Router();
 
-router.get("/getMe", getLoggedUserData, getUser);
-router.put("/changeMyPassword", updateLoggedUserPassword);
-router.put("/updateMe", updateLoggedUserValidator, updateLoggedUserData);
-router.delete("/deleteMe", deleteLoggedUserData);
+router.get("/getMe", authBakerService.protect, getLoggedUserData, getUser);
+router.put(
+  "/changeMyPassword",
+  authBakerService.protect,
+  updateLoggedUserPassword
+);
+router.put(
+  "/updateMe",
+  authBakerService.protect,
+  updateLoggedUserValidator,
+  updateLoggedUserData
+);
+router.delete("/deleteMe", authBakerService.protect, deleteLoggedUserData);
 
 router.put(
   "/changePassword/:id",
@@ -52,6 +61,6 @@ router
     updateUserValidator,
     updateUser
   )
-  .delete(deleteUserValidator, deleteUser);
+  .delete(authBakerService.protect, deleteUserValidator, deleteUser);
 
 module.exports = router;

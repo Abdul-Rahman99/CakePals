@@ -27,27 +27,27 @@ exports.resizeImage = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Get list of Products
-// @route   GET /api/v1/Products
+// @route   GET /api/v1/products
 // @access  Public
 exports.getProducts = factory.getAll(Product);
 
 // @desc    Get specific Product by id
-// @route   GET /api/v1/Products/:id
+// @route   GET /api/v1/products/:id
 // @access  Public
 exports.getProduct = factory.getOne(Product);
 
 // @desc    Create Product
-// @route   POST  /api/v1/Products
+// @route   POST  /api/v1/products
 // @access  Private
 exports.createProduct = factory.createOne(Product);
 
 // @desc    Update specific Product
-// @route   PUT /api/v1/Products/:id
+// @route   PUT /api/v1/products/:id
 // @access  Private
 exports.updateProduct = factory.updateOne(Product);
 
 // @desc    Delete specific Product
-// @route   DELETE /api/v1/Products/:id
+// @route   DELETE /api/v1/products/:id
 // @access  Private
 exports.deleteProduct = factory.deleteOne(Product);
 
@@ -70,6 +70,9 @@ function filterProducts(products, location, type) {
 
   return filteredProducts;
 }
+
+// @desc    Filtering products by location and type
+// @access  Protected/member
 exports.filteringVar = asyncHandler(async (req, res) => {
   const { location, type } = req.query;
 

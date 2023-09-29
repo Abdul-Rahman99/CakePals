@@ -118,7 +118,7 @@ exports.allowedTo = (...roles) =>
   });
 
 // @desc    Forgot password
-// @route   POST /api/v1/auth/forgotPassword
+// @route   POST /api/v1/authMember/forgotPassword
 // @access  Public
 exports.forgotPassword = asyncHandler(async (req, res, next) => {
   // 1) Get user by email
@@ -166,7 +166,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Verify password reset code
-// @route   POST /api/v1/auth/verifyResetCode
+// @route   POST /api/v1/authMember/verifyResetCode
 // @access  Public
 exports.verifyPassResetCode = asyncHandler(async (req, res, next) => {
   // 1) Get user based on reset code
@@ -193,7 +193,7 @@ exports.verifyPassResetCode = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Reset password
-// @route   POST /api/v1/auth/resetPassword
+// @route   POST /api/v1/authMember/resetPassword
 // @access  Public
 exports.resetPassword = asyncHandler(async (req, res, next) => {
   // 1) Get user based on email
